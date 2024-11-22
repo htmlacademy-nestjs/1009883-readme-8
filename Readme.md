@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
-* Студент: [Юрий Бадьин](https://up.htmlacademy.ru/nodejs-2/8/user/1009883).
-* Наставник: `Неизвестно`.
+- Студент: [Юрий Бадьин](https://up.htmlacademy.ru/nodejs-2/8/user/1009883).
+- Наставник: [Владислав Поклонский](https://htmlacademy.ru/profile/id2210683).
 
 ---
 

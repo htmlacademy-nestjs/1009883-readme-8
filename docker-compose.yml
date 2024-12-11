@@ -10,5 +10,5 @@ services:
       - ./:/home/node/app
     ports:
       - 127.0.0.1:3000:3000
-    environment:
-      NX_DAEMON: true
+    # environment:
+    #   NX_DAEMON: true

@@ -10,5 +10,19 @@ services:
       - ./:/home/node/app
     ports:
       - 127.0.0.1:3000:3000
-    environment:
-      NX_DAEMON: true
+    # environment:
+    #   NX_DAEMON: true
+#   readme-8.user.mongo:
+#     extends:
+#       file: ./project/apps/user/docker-compose.dev.yml
+#       service: readme-8.user.mongo
+#     env_file: ./project/apps/user/user.env
+
+#   readme-8.user.mongo.ui:
+#     extends:
+#       file: ./project/apps/user/docker-compose.dev.yml
+#       service: readme-8.user.mongo.ui
+#     env_file: ./project/apps/user/user.env
+
+# volumes:
+#   readme-8.mongo.user:

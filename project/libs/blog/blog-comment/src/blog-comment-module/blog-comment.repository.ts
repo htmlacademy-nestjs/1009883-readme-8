@@ -42,12 +42,23 @@ export class BlogCommentRepository extends BasePostgresRepository<
     return this.createEntityFromDocument(document);
   }
 
-  public async find(): Promise<BlogCommentEntity[]> {
-    const documents = await this.client.comment.findMany({
+  // public async find(): Promise<BlogCommentEntity[]> {
+  //   const documents = await this.client.comment.findMany({
+  //     take: MAX_COMMENT_LIMIT,
+  //   });
+
+  //   return documents.map((document) => this.createEntityFromDocument(document));
+  // }
+
+  public async findByPostId(postId: string): Promise<BlogCommentEntity[]> {
+    const records = await this.client.comment.findMany({
+      where: {
+        postId,
+      },
       take: MAX_COMMENT_LIMIT,
     });
 
-    return documents.map((document) => this.createEntityFromDocument(document));
+    return records.map((record) => this.createEntityFromDocument(record));
   }
 
   public async deleteById(id: string): Promise<void> {
@@ -58,12 +69,12 @@ export class BlogCommentRepository extends BasePostgresRepository<
     });
   }
 
-  public async update(entity: BlogCommentEntity): Promise<void> {
-    await this.client.comment.update({
-      where: { id: entity.id },
-      data: {
-        text: entity.text,
-      },
-    });
-  }
+  // public async update(entity: BlogCommentEntity): Promise<void> {
+  //   await this.client.comment.update({
+  //     where: { id: entity.id },
+  //     data: {
+  //       text: entity.text,
+  //     },
+  //   });
+  // }
 }

@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { fillDto } from '@project/shared-helpers';
@@ -24,6 +25,7 @@ import {
   CommentRdo,
   CreateCommentDto,
 } from '@project/blog-comment';
+import { PostContentRequestTransform } from './interceptors/post-content-request-transform.interceptor';
 
 @Controller('posts')
 export class BlogPostController {
@@ -49,6 +51,7 @@ export class BlogPostController {
   }
 
   @Post('/')
+  @UseInterceptors(PostContentRequestTransform)
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.blogPostService.createPost(dto);
     // return fillDto(BlogPostRdo, newPost.toPOJO());
@@ -62,6 +65,7 @@ export class BlogPostController {
   }
 
   @Patch('/:id')
+  @UseInterceptors(PostContentRequestTransform)
   public async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
     const updatedPost = await this.blogPostService.updatePost(id, dto);
     return fillDto(BlogPostRdo, updatedPost.toPOJO());

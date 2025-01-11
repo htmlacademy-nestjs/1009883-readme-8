@@ -22,6 +22,8 @@
       "@project/blog-post": ["libs/blog/blog-post/src/index.ts"],
       "@project/blog-user": ["libs/user/blog-user/src/index.ts"],
       "@project/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@project/file-uploader": ["libs/files/file-uploader/src/index.ts"],
+      "@project/files-config": ["libs/files/config/src/index.ts"],
       "@project/shared-core": ["libs/shared/core/src/index.ts"],
       "@project/shared-helpers": ["libs/shared/helpers/src/index.ts"],
       "@project/shared-pipes": ["libs/shared/pipes/src/index.ts"],

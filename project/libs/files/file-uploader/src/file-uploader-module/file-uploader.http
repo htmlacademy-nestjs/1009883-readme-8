@@ -10,3 +10,8 @@ Content-Disposition: form-data; name="file"; filename="file-uploader.http"
 --boundary--
 
 ###
+
+# Get file by ID
+GET http://localhost:3000/api/files/67865f49e29de26ecff7e44a HTTP/1.1
+
+###

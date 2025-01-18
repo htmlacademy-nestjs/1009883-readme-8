@@ -17,11 +17,15 @@ import { AuthenticationResponseMessage } from './authentication.constant';
 import { MongoIdValidationPipe } from '@project/shared-pipes';
 import { fillDto } from '@project/shared-helpers';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { NotificationsService } from '@project/user-notifications';
 
 @ApiTags('authentication')
 @Controller('auth')
 export class AuthenticationController {
-  constructor(private readonly authService: AuthenticationService) {}
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly notificationsService: NotificationsService
+  ) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -34,6 +38,9 @@ export class AuthenticationController {
   @Post('register')
   public async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
+    const { email, name } = newUser;
+    await this.notificationsService.registerSubscriber({ email, name });
+
     return newUser.toPOJO();
   }
 

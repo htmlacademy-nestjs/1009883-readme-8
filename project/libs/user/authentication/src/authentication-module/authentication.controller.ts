@@ -2,9 +2,11 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   HttpStatus,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -18,6 +20,9 @@ import { MongoIdValidationPipe } from '@project/shared-pipes';
 import { fillDto } from '@project/shared-helpers';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { NotificationsService } from '@project/user-notifications';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { RequestWithUser } from './request-with-user.interface';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -53,11 +58,11 @@ export class AuthenticationController {
     status: HttpStatus.UNAUTHORIZED,
     description: AuthenticationResponseMessage.LoggedError,
   })
+  @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-    const userToken = await this.authService.createUserToken(verifiedUser);
-    return fillDto(LoggedUserRdo, { ...verifiedUser.toPOJO(), ...userToken });
+  public async login(@Req() { user }: RequestWithUser) {
+    const userToken = await this.authService.createUserToken(user);
+    return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
   }
 
   @ApiResponse({
@@ -69,15 +74,21 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
     return existUser.toPOJO();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/demo/:id')
-  public async demoPipe(@Param('id') id: number) {
-    console.log(typeof id);
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get a new access/refresh tokens',
+  })
+  @UseGuards(JwtRefreshGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh')
+  public async refreshToken(@Req() { user }: RequestWithUser) {
+    return this.authService.createUserToken(user);
   }
 }

@@ -1,5 +1,5 @@
 # Create a new user
-POST http://localhost:3000/api/auth/register HTTP/1.1
+POST http://localhost:3001/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
@@ -12,12 +12,12 @@ Content-Type: application/json
 ###
 
 # Get user by ID
-GET http://localhost:3000/api/auth/677e53ed7baca31a45997160 HTTP/1.1
+GET http://localhost:3001/api/auth/677e53ed7baca31a45997160 HTTP/1.1
 
 ###
 
 # Login user by email and password
-POST http://localhost:3000/api/auth/login HTTP/1.1
+POST http://localhost:3001/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -27,8 +27,8 @@ Content-Type: application/json
 
 ###
 
-# Demo route for Pipe
-GET http://localhost:3000/api/auth/demo/1 HTTP/1.1.
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczNjMzNTM4OSwiZXhwIjoxNzM2MzM1Njg5fQ.7GPiQAdkfRLLj4OxWDHPLdZjlPO9_-_fBJlBPd-XD9Y
+# Get new JWT pair
+POST http://localhost:3001/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiJmMjAxMzI3Ni0zNzUwLTRkMjctOGRmYy0xZmZlNDRjYTYwN2EiLCJpYXQiOjE3Mzc2Mzk3NTYsImV4cCI6MTc0MDIzMTc1Nn0.XtcoHlFrGTwyY4rcuDPy_UQjHMYnxoOV-sNIXyNDOZI
 
 ###

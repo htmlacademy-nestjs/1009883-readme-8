@@ -27,6 +27,7 @@
       ],
       "@project/file-uploader": ["libs/files/file-uploader/src/index.ts"],
       "@project/files-config": ["libs/files/config/src/index.ts"],
+      "@project/interceptors": ["libs/shared/interceptors/src/index.ts"],
       "@project/notifications-config": [
         "libs/notifications/config/src/index.ts"
       ],

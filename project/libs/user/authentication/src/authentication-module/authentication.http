@@ -32,3 +32,9 @@ POST http://localhost:3001/api/auth/refresh HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiJmMjAxMzI3Ni0zNzUwLTRkMjctOGRmYy0xZmZlNDRjYTYwN2EiLCJpYXQiOjE3Mzc2Mzk3NTYsImV4cCI6MTc0MDIzMTc1Nn0.XtcoHlFrGTwyY4rcuDPy_UQjHMYnxoOV-sNIXyNDOZI
 
 ###
+
+# Check user token
+POST http://localhost:3001/api/auth/check HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczNzcxOTY5NSwiZXhwIjoxNzM3NzE5OTk1fQ.n0Sv13veLYdD3uqMqry_S29BmFyePM3IHW9xJiZTEjg
+
+###

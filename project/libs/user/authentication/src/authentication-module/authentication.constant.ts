@@ -2,6 +2,7 @@ export enum AuthMessages {
   UserExists = 'User with this email exists',
   LoginFailed = 'Wrong password or email',
   UserNotFound = 'User not found',
+  OldPasswordWrong = 'Old password is wrong.',
 }
 
 export const AuthenticationResponseMessage = {
@@ -11,6 +12,7 @@ export const AuthenticationResponseMessage = {
   UserNotFound: 'User not found',
   UserExist: 'User with the email already exists',
   UserCreated: 'The new user has been successfully created.',
+  ServerError: 'Internal server error',
 } as const;
 
 export const AuthenticationValidateMessage = {

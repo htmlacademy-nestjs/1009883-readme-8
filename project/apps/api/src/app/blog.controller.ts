@@ -10,7 +10,6 @@ import { HttpService } from '@nestjs/axios';
 
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { CheckAuthGuard } from './guards/check-auth.guard';
-// import { AddNewPostDto } from './dto/add-new-post.dto';
 import { ApplicationServiceURL } from './app.config';
 import { InjectAuthorIdInterceptor } from '@project/interceptors';
 

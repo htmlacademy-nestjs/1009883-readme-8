@@ -65,9 +65,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZ
 
 ###
 
-# Get new JWT pair
-POST http://localhost:3000/api/users/refresh HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiJjN2JjMjgzZi1lN2U5LTQyZjktOGMzOC1mMWE2MzAyMTY3MDkiLCJpYXQiOjE3Mzc3MTg0MzUsImV4cCI6MTc0MDMxMDQzNX0.8ClnN1gqcOVqUMUeajfnMOdq_Na0DxTQEmymaoz7k8A
+# Get user detail by ID
+GET http://localhost:3000/api/users/677e53ed7baca31a45997160 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE2MjA2NywiZXhwIjoxNzM4MTYyMzY3fQ.m6QJuMFBRdeKBkzWdIZFyQramP6e6Tp5IJkmbqDSzoU
 
 ###
 

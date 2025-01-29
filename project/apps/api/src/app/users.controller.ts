@@ -4,8 +4,10 @@ import {
   Body,
   Controller,
   FileTypeValidator,
+  Get,
   HttpStatus,
   MaxFileSizeValidator,
+  Param,
   ParseFilePipe,
   Post,
   Req,
@@ -21,6 +23,7 @@ import {
   LoggedUserRdo,
   LoginUserDto,
   TokenPairRdo,
+  UserDetailsRdo,
   UserRdo,
 } from '@project/authentication';
 
@@ -154,6 +157,29 @@ export class UsersController {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/refresh`,
       null,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+
+    return data;
+  }
+
+  @ApiResponse({
+    type: UserDetailsRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.UserFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: AuthenticationResponseMessage.UserNotFound,
+  })
+  @Get(':id')
+  public async getUserDetails(@Param('id') id: string, @Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.Users}/${id}`,
       {
         headers: {
           Authorization: req.headers['authorization'],

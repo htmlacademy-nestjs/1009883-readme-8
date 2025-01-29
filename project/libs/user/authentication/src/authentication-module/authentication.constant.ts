@@ -13,6 +13,8 @@ export const AuthenticationResponseMessage = {
   UserExist: 'User with the email already exists',
   UserCreated: 'The new user has been successfully created.',
   ServerError: 'Internal server error',
+  PasswordChanged: 'Password was successfully changed.',
+  PasswordChangeUnauthorized: 'Authentication failed or old password is wrong.',
 } as const;
 
 export const AuthenticationValidateMessage = {

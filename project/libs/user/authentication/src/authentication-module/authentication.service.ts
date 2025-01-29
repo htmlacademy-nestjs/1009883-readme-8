@@ -18,7 +18,7 @@ import { Token, User } from '@project/shared-core';
 import { jwtConfig } from '@project/user-config';
 import { RefreshTokenService } from '../refresh-token-module/refresh-token.service';
 import { createJWTPayload } from '@project/shared-helpers';
-import { ChangePassword } from '../dto/change-password.dto';
+import { ChangePasswordDto } from '../dto/change-password.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -55,7 +55,7 @@ export class AuthenticationService {
     return userEntity;
   }
 
-  public async changePassword(id: string, dto: ChangePassword) {
+  public async changePassword(id: string, dto: ChangePasswordDto) {
     const { oldPassword, newPassword } = dto;
     const existUser = await this.blogUserRepository.findById(id);
 

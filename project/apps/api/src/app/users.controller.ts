@@ -11,11 +11,13 @@ import {
   Req,
   UploadedFile,
   UseFilters,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 
 import {
   AuthenticationResponseMessage,
+  ChangePasswordDto,
   LoggedUserRdo,
   LoginUserDto,
   UserRdo,
@@ -26,6 +28,7 @@ import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UserRegisterDto } from './dto/user-register.dto';
+import { CheckAuthGuard } from './guards/check-auth.guard';
 
 @ApiTags('users')
 @Controller('users')
@@ -101,6 +104,38 @@ export class UsersController {
       `${ApplicationServiceURL.Users}/login`,
       loginUserDto
     );
+    return data;
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthenticationResponseMessage.PasswordChanged,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthenticationResponseMessage.PasswordChangeUnauthorized,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: AuthenticationResponseMessage.ServerError,
+  })
+  @UseGuards(CheckAuthGuard)
+  @Post('password')
+  public async changePassword(
+    @Body() dto: ChangePasswordDto,
+    @Req() req: Request
+  ) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Users}/password`,
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+
     return data;
   }
 

@@ -46,6 +46,19 @@ Content-Type: application/json
 
 ###
 
+# Change password
+POST http://localhost:3001/api/auth/password HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE0NjAwNSwiZXhwIjoxNzM4MTQ2MzA1fQ.tycqVq-O2IGjeBj_SKu3LkccCuiCXy40dtyA1tBu8wI
+Content-Type: application/json
+
+{
+  "oldPassword": "1234567",
+  "newPassword": "123456"
+}
+
+
+###
+
 # Get new JWT pair
 POST http://localhost:3000/api/users/refresh HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiJjN2JjMjgzZi1lN2U5LTQyZjktOGMzOC1mMWE2MzAyMTY3MDkiLCJpYXQiOjE3Mzc3MTg0MzUsImV4cCI6MTc0MDMxMDQzNX0.8ClnN1gqcOVqUMUeajfnMOdq_Na0DxTQEmymaoz7k8A

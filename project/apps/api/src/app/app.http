@@ -47,8 +47,8 @@ Content-Type: application/json
 ###
 
 # Change password
-POST http://localhost:3001/api/auth/password HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE0NjAwNSwiZXhwIjoxNzM4MTQ2MzA1fQ.tycqVq-O2IGjeBj_SKu3LkccCuiCXy40dtyA1tBu8wI
+POST http://localhost:3000/api/users/password HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE0NzM2NSwiZXhwIjoxNzM4MTQ3NjY1fQ.nsM7r0fq97NS51M0vL2V7t2ADQP7dSkcNNq8-BJ2ZIE
 Content-Type: application/json
 
 {
@@ -56,6 +56,12 @@ Content-Type: application/json
   "newPassword": "123456"
 }
 
+
+###
+
+# Get new JWT pair
+POST http://localhost:3000/api/users/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiI2ZmYwZTE5MS1hNTk4LTQ3YTEtYmFhNC1kODA0ZDY3OTk3MTciLCJpYXQiOjE3MzgxNDc0NzIsImV4cCI6MTc0MDczOTQ3Mn0.uQ9KCsVgUZ5btO1y03Yh5qGfCdr3khP3eoISdxKN8AQ
 
 ###
 

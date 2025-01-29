@@ -20,6 +20,7 @@ import {
   ChangePasswordDto,
   LoggedUserRdo,
   LoginUserDto,
+  TokenPairRdo,
   UserRdo,
 } from '@project/authentication';
 
@@ -139,6 +140,15 @@ export class UsersController {
     return data;
   }
 
+  @ApiResponse({
+    type: TokenPairRdo,
+    status: HttpStatus.OK,
+    description: AuthenticationResponseMessage.RefreshSuccess,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthenticationResponseMessage.RefreshFailure,
+  })
   @Post('refresh')
   public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(

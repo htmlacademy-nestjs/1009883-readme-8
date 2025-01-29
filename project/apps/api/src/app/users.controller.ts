@@ -18,12 +18,14 @@ import {
   AuthenticationResponseMessage,
   LoggedUserRdo,
   LoginUserDto,
+  UserRdo,
 } from '@project/authentication';
 
 import { ApplicationServiceURL } from './app.config';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UserRegisterDto } from './dto/user-register.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -31,10 +33,24 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class UsersController {
   constructor(private readonly httpService: HttpService) {}
 
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthenticationResponseMessage.UserCreated,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: AuthenticationResponseMessage.UserExist,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: AuthenticationResponseMessage.ServerError,
+  })
+  @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('avatar'))
   @Post('register')
   public async register(
-    @Body() dto,
+    @Body() dto: UserRegisterDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: [

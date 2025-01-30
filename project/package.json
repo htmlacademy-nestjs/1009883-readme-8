@@ -2,7 +2,18 @@
   "name": "@project/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "notifications:docker-up": "docker compose --file ./apps/notifications/docker-compose.dev.yml --env-file ./apps/notifications/notifications.env --project-name readme-8-notifications up -d",
+    "notifications:docker-down": "docker compose --file ./apps/notifications/docker-compose.dev.yml --env-file ./apps/notifications/notifications.env --project-name readme-8-notifications down",
+    "user:docker-up": "docker compose --file ./apps/user/docker-compose.dev.yml --project-name readme-8-user --env-file ./apps/user/user.env up -d",
+    "user:docker-down": "docker compose --file ./apps/user/docker-compose.dev.yml --project-name readme-8-user --env-file ./apps/user/user.env down",
+    "blog:docker-up": "docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name readme-8-blog up -d",
+    "blog:docker-down": "docker compose --file ./apps/blog/docker-compose.dev.yml --env-file ./apps/blog/blog.env --project-name readme-8-blog down",
+    "files:docker-up": "docker compose --file ./apps/files/docker-compose.dev.yml --env-file ./apps/files/files.env --project-name readme-8-files up -d",
+    "files:docker-down": "docker compose --file ./apps/files/docker-compose.dev.yml --env-file ./apps/files/files.env --project-name readme-8-files down",
+    "all:docker-up": "npm run notifications:docker-up && npm run user:docker-up && npm run blog:docker-up && npm run files:docker-up",
+    "all:docker-down": "npm run notifications:docker-down && npm run user:docker-down && npm run blog:docker-down && npm run files:docker-down"
+  },
   "private": true,
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "5.6.1",

@@ -1,3 +1,40 @@
+# Create a new user without avatar
+POST http://localhost:3000/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "keks2@notfound.local",
+  "name": "Keks",
+  "password": "123456"
+}
+
+###
+
+# Create a new user with avatar
+POST http://localhost:3000/api/users/register HTTP/1.1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="email"
+
+keksavatar@notfound.local
+--boundary
+Content-Disposition: form-data; name="password"
+
+123456
+--boundary
+Content-Disposition: form-data; name="name"
+
+Keks
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./avatar.jpg
+--boundary--
+
+###
+
 # Login user by email and password
 POST http://localhost:3000/api/users/login HTTP/1.1
 Content-Type: application/json
@@ -9,9 +46,35 @@ Content-Type: application/json
 
 ###
 
+# Change password
+POST http://localhost:3000/api/users/password HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE0NzM2NSwiZXhwIjoxNzM4MTQ3NjY1fQ.nsM7r0fq97NS51M0vL2V7t2ADQP7dSkcNNq8-BJ2ZIE
+Content-Type: application/json
+
+{
+  "oldPassword": "1234567",
+  "newPassword": "123456"
+}
+
+
+###
+
 # Get new JWT pair
 POST http://localhost:3000/api/users/refresh HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiJjN2JjMjgzZi1lN2U5LTQyZjktOGMzOC1mMWE2MzAyMTY3MDkiLCJpYXQiOjE3Mzc3MTg0MzUsImV4cCI6MTc0MDMxMDQzNX0.8ClnN1gqcOVqUMUeajfnMOdq_Na0DxTQEmymaoz7k8A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsInRva2VuSWQiOiI2ZmYwZTE5MS1hNTk4LTQ3YTEtYmFhNC1kODA0ZDY3OTk3MTciLCJpYXQiOjE3MzgxNDc0NzIsImV4cCI6MTc0MDczOTQ3Mn0.uQ9KCsVgUZ5btO1y03Yh5qGfCdr3khP3eoISdxKN8AQ
+
+###
+
+# Get user detail by ID
+GET http://localhost:3000/api/users/677e53ed7baca31a45997160 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODE2MjA2NywiZXhwIjoxNzM4MTYyMzY3fQ.m6QJuMFBRdeKBkzWdIZFyQramP6e6Tp5IJkmbqDSzoU
+
+###
+
+# Add subcription
+POST http://localhost:3000/api/users/toggle-subscribe/679b5058f5cc612924118a50 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODIzMjQ2MywiZXhwIjoxNzM4MjMyNzYzfQ.ftQBk4XUWjaoMy4MLNATqjF9XfaEIrsvYF2pQZN3xEA
 
 ###
 

@@ -71,6 +71,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZ
 
 ###
 
+# Add subcription
+POST http://localhost:3000/api/users/toggle-subscribe/679b5058f5cc612924118a50 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODIzMjQ2MywiZXhwIjoxNzM4MjMyNzYzfQ.ftQBk4XUWjaoMy4MLNATqjF9XfaEIrsvYF2pQZN3xEA
+
+###
+
 # Create a new post
 POST http://localhost:3000/api/blog HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczNzcyMTg3MSwiZXhwIjoxNzM3NzIyMTcxfQ.Zui7bGDsumL3hNrNtbjwRegWbUJj86jqk9q2hIno0QU

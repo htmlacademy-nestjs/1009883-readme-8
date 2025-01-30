@@ -17,6 +17,8 @@ export const AuthenticationResponseMessage = {
   PasswordChangeUnauthorized: 'Authentication failed or old password is wrong.',
   RefreshSuccess: 'Get a new access/refresh tokens',
   RefreshFailure: 'Wrong refresh token',
+  SubsciptionSucess: 'Successfullly subscribed or unsubscribed',
+  JwtAuthFailed: 'JWT authentification failed',
 } as const;
 
 export const AuthenticationValidateMessage = {

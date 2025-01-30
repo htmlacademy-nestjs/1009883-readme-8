@@ -5,6 +5,7 @@ import {
   Controller,
   FileTypeValidator,
   Get,
+  HttpCode,
   HttpStatus,
   MaxFileSizeValidator,
   Param,
@@ -188,5 +189,32 @@ export class UsersController {
     );
 
     return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: AuthenticationResponseMessage.SubsciptionSucess,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: AuthenticationResponseMessage.UserNotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthenticationResponseMessage.JwtAuthFailed,
+  })
+  @UseGuards(CheckAuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post('toggle-subscribe/:id')
+  public async toggleSubscribe(@Param('id') id: string, @Req() req: Request) {
+    await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Users}/toggle-subscribe/${id}`,
+      null,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
   }
 }

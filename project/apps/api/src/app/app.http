@@ -80,7 +80,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZ
 
 # Create a new post
 POST http://localhost:3000/api/blog HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczNzcyMTg3MSwiZXhwIjoxNzM3NzIyMTcxfQ.Zui7bGDsumL3hNrNtbjwRegWbUJj86jqk9q2hIno0QU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODMxODY1OSwiZXhwIjoxNzM4MzE4OTU5fQ.53k8D6QktSPI-gEqZ-9IC8qhLLohZTAHG7v-q5g_pIQ
 Content-Type: application/json
 
 {
@@ -92,4 +92,22 @@ Content-Type: application/json
     "text": "Текст публикации (обязательно). Минимальная длина 100 символов, максимальная 1024 символа. Текст публикации (обязательно)."
   }
 }
+###
+
+# Create a new PHOTO post
+POST http://localhost:3000/api/blog HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODMxOTg2NCwiZXhwIjoxNzM4MzIwMTY0fQ.WsjuXRN60OLjQLcFNsWhbv9HQdeOdD5J-sDpm56764Y
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="type"
+
+PHOTO
+--boundary
+Content-Disposition: form-data; name="file"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./avatar.jpg
+--boundary--
+
 ###

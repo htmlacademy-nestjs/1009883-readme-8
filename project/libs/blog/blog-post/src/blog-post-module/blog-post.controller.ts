@@ -26,7 +26,10 @@ import {
   CreateCommentDto,
 } from '@project/blog-comment';
 import { PostContentRequestTransform } from './interceptors/post-content-request-transform.interceptor';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { BlogPostResponseMessages } from './blog-post.constant';
 
+@ApiTags('posts')
 @Controller('posts')
 export class BlogPostController {
   constructor(
@@ -50,12 +53,24 @@ export class BlogPostController {
     return fillDto(BlogPostWithPaginationRdo, result);
   }
 
+  @ApiResponse({
+    type: BlogPostRdo,
+    status: HttpStatus.CREATED,
+    description: BlogPostResponseMessages.PostCreated,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: BlogPostResponseMessages.AuthFailed,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: BlogPostResponseMessages.ServerError,
+  })
   @Post('/')
   @UseInterceptors(PostContentRequestTransform)
   public async create(@Body() dto: CreatePostDto) {
     const newPost = await this.blogPostService.createPost(dto);
-    // return fillDto(BlogPostRdo, newPost.toPOJO());
-    return newPost.toPOJO();
+    return fillDto(BlogPostRdo, newPost.toPOJO());
   }
 
   @Delete('/:id')

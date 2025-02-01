@@ -3,10 +3,13 @@ import {
   Body,
   Controller,
   FileTypeValidator,
+  Get,
   HttpStatus,
   MaxFileSizeValidator,
+  Param,
   ParseFilePipe,
   Post,
+  Query,
   UploadedFile,
   UseFilters,
   UseGuards,
@@ -22,9 +25,14 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PostCreateDto } from './dto/post-create.dto';
 import { PostTypes } from '@project/shared-core';
 import { ApiResponse } from '@nestjs/swagger';
-import { BlogPostRdo, BlogPostResponseMessages } from '@project/blog-post';
+import {
+  BlogPostQuery,
+  BlogPostRdo,
+  BlogPostResponseMessages,
+  BlogPostWithPaginationRdo,
+} from '@project/blog-post';
 
-@Controller('blog')
+@Controller('posts')
 @UseFilters(AxiosExceptionFilter)
 export class BlogController {
   constructor(private readonly httpService: HttpService) {}
@@ -85,9 +93,52 @@ export class BlogController {
     }
 
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Blog}/`,
+      `${ApplicationServiceURL.Posts}/`,
       dto
     );
+
+    await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Users}/incrementPostsCount${dto['authorId']}`
+    );
+
+    return data;
+  }
+
+  @ApiResponse({
+    type: BlogPostRdo,
+    status: HttpStatus.OK,
+    description: BlogPostResponseMessages.PostFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: BlogPostResponseMessages.PostNotFound,
+  })
+  @Get(':id')
+  public async show(@Param('id') id: string) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.Posts}/${id}`
+    );
+    return data;
+  }
+
+  @ApiResponse({
+    type: BlogPostWithPaginationRdo,
+    status: HttpStatus.OK,
+    description: BlogPostResponseMessages.PostFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: BlogPostResponseMessages.ServerError,
+  })
+  @Get('/')
+  public async index(@Query() query: BlogPostQuery) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.Posts}`,
+      {
+        params: query,
+      }
+    );
+
     return data;
   }
 }

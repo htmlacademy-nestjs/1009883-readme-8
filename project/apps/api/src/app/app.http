@@ -111,3 +111,19 @@ Content-Type: image/jpeg
 --boundary--
 
 ###
+
+# Get all posts
+GET http://localhost:3000/api/posts HTTP/1.1
+
+###
+
+# Get posts with filter
+
+GET http://localhost:3000/api/posts?limit=2&sortDirection=desc&page=1&search=Тест HTTP/1.1
+
+###
+
+# Get post by id
+GET http://localhost:3000/api/posts/fb187059-ab2b-490d-8e56-838392d5b949 HTTP/1.1
+
+###

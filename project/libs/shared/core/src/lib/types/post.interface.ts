@@ -13,5 +13,6 @@ export interface Post {
   createdAt?: Date;
   updatedAt?: Date;
   content: BlogContents[(typeof PostTypes)[keyof typeof PostTypes]];
-  //favorite?
+  likesCount: number;
+  commentsCount: number;
 }

@@ -15,4 +15,6 @@ export const BlogPostResponseMessages = {
   PostNotFound: 'Post was not found',
   LikeAdded: 'Like was added',
   LikeDeleted: 'Like was deleted',
+  PostDeleted: 'Post was deleted',
+  Forbidden: 'Access denied',
 } as const;

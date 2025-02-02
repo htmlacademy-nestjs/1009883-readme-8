@@ -40,7 +40,7 @@ POST http://localhost:3000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "keks2@notfound.local",
+  "email": "keks@notfound.local",
   "password": "123456"
 }
 
@@ -143,5 +143,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZ
 # Make a repost
 POST http://localhost:3000/api/posts/repost/fb187059-ab2b-490d-8e56-838392d5b949
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzliNTA1OGY1Y2M2MTI5MjQxMThhNTAiLCJlbWFpbCI6Imtla3MyQG5vdGZvdW5kLmxvY2FsIiwibmFtZSI6Iktla3MiLCJpYXQiOjE3Mzg0OTY2NjcsImV4cCI6MTczODQ5Njk2N30.H1B1bY-mvIM5YkRMUo9WEcxLtq1zhiPFTX8MBjPwxaw
+
+###
+
+# Delete a post
+DELETE http://localhost:3000/api/posts/db1f91d7-691e-44af-bcba-146b213c3493
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODUwMDgxMywiZXhwIjoxNzM4NTAxMTEzfQ.sHL3eQf_2KaQfElop7pTpTI7kiNWCmQ-2-pnUjuVgK0
 
 ###

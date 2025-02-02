@@ -180,6 +180,32 @@ export class BlogPostRepository extends BasePostgresRepository<
     };
   }
 
+  public async addLike(userId: string, postId: string) {
+    const existsLike = await this.client.favorite.findFirst({
+      where: { userId, postId },
+    });
+
+    if (existsLike) return;
+
+    await this.client.favorite.create({
+      data: { userId, postId },
+    });
+  }
+
+  public async deleteLike(userId: string, postId: string) {
+    const existsLike = await this.client.favorite.findFirst({
+      where: { userId, postId },
+    });
+
+    if (!existsLike) return;
+
+    await this.client.favorite.delete({
+      where: {
+        userId_postId: { userId, postId },
+      },
+    });
+  }
+
   private transformRawDocument(
     document: {
       tags: {

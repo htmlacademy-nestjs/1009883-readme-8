@@ -13,4 +13,6 @@ export const BlogPostResponseMessages = {
   ServerError: 'Internal server error',
   PostFound: 'Post was found',
   PostNotFound: 'Post was not found',
+  LikeAdded: 'Like was added',
+  LikeDeleted: 'Like was deleted',
 } as const;

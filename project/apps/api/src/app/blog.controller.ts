@@ -4,6 +4,7 @@ import {
   Controller,
   FileTypeValidator,
   Get,
+  HttpCode,
   HttpStatus,
   MaxFileSizeValidator,
   Param,
@@ -140,5 +141,51 @@ export class BlogController {
     );
 
     return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: BlogPostResponseMessages.LikeAdded,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: BlogPostResponseMessages.AuthFailed,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: BlogPostResponseMessages.PostNotFound,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectAuthorIdInterceptor)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post('addLike/:postId')
+  public async saveLike(@Param('postId') postId: string, @Body() dto) {
+    await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Posts}/addLike/${postId}`,
+      dto
+    );
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: BlogPostResponseMessages.LikeDeleted,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: BlogPostResponseMessages.AuthFailed,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: BlogPostResponseMessages.PostNotFound,
+  })
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(InjectAuthorIdInterceptor)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post('deleteLike/:postId')
+  public async deleteLike(@Param('postId') postId: string, @Body() dto) {
+    await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Posts}/deleteLike/${postId}`,
+      dto
+    );
   }
 }

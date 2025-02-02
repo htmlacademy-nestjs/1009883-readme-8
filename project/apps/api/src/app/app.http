@@ -127,3 +127,14 @@ GET http://localhost:3000/api/posts?limit=2&sortDirection=desc&page=1&search=Ð¢Ð
 GET http://localhost:3000/api/posts/fb187059-ab2b-490d-8e56-838392d5b949 HTTP/1.1
 
 ###
+
+# Add like to post
+POST http://localhost:3000/api/posts/addLike/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODQ5NDE3MCwiZXhwIjoxNzM4NDk0NDcwfQ.08nYxz182hIwfpXtdHnnXHYnDF4RA6QVEEHC7ZbRa-w
+
+###
+
+# Delete like to post
+POST http://localhost:3000/api/posts/deleteLike/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODQ5NDE3MCwiZXhwIjoxNzM4NDk0NDcwfQ.08nYxz182hIwfpXtdHnnXHYnDF4RA6QVEEHC7ZbRa-w
+###

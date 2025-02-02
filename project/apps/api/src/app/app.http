@@ -151,3 +151,20 @@ DELETE http://localhost:3000/api/posts/db1f91d7-691e-44af-bcba-146b213c3493
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODUwMDgxMywiZXhwIjoxNzM4NTAxMTEzfQ.sHL3eQf_2KaQfElop7pTpTI7kiNWCmQ-2-pnUjuVgK0
 
 ###
+
+# Update a post
+PATCH http://localhost:3000/api/posts/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODUwNDA1NiwiZXhwIjoxNzM4NTA0MzU2fQ.R3mXdXx8Iyz7rWKf6DoDAaP9RobvWCp16adWqyUTX_s
+Content-Type: application/json
+
+{
+  "type": "TEXT",
+  "tags": ["cats", "new"],
+  "content": {
+    "title": "Updated. Тест API Gateway Тест API Gateway",
+    "teaser": "Текст с анонсом публикации. Минимальная длина 50 символов, максимальная 255.",
+    "text": "Текст публикации (обязательно). Минимальная длина 100 символов, максимальная 1024 символа. Текст публикации (обязательно)."
+  }
+}
+
+###

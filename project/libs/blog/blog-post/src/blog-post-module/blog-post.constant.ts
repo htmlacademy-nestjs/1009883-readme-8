@@ -17,4 +17,6 @@ export const BlogPostResponseMessages = {
   LikeDeleted: 'Like was deleted',
   PostDeleted: 'Post was deleted',
   Forbidden: 'Access denied',
+  PostUpdated: 'Post was updated',
+  ValidationError: 'Validation error',
 } as const;

@@ -1,6 +1,7 @@
 import {
   ArrayMaxSize,
   IsArray,
+  IsBoolean,
   IsIn,
   IsMongoId,
   IsOptional,
@@ -64,9 +65,7 @@ export class UpdatePostDto {
       { $ref: getSchemaPath(TextContentDto) },
       { $ref: getSchemaPath(VideoContentDto) },
     ],
-    required: false,
   })
-  @IsOptional()
   @ValidateNested()
   @Type(() => PostContent, {
     discriminator: {
@@ -94,4 +93,13 @@ export class UpdatePostDto {
   @IsString()
   @IsMongoId()
   public authorId: string;
+
+  @ApiProperty({
+    description: 'Whether the post is published',
+    example: true,
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  public published: boolean;
 }

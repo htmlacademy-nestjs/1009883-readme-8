@@ -184,3 +184,9 @@ Content-Type: application/json
 GET http://localhost:3000/api/posts/68436b6a-16ec-42b4-a48a-a4b147cd1161/comments
 
 ###
+
+# Delete comment
+DELETE  http://localhost:3000/api/comments/4f3bd95d-510b-442b-ba92-7797622d20e8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODU4MjMxNywiZXhwIjoxNzM4NTgyNjE3fQ.Vr_89L0gn2uVIRE36Qz8E3Onrv5ZRI0TKS4Cn59gmj0
+
+###

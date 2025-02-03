@@ -80,7 +80,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZ
 
 # Create a new post
 POST http://localhost:3000/api/blog HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczNzcyMTg3MSwiZXhwIjoxNzM3NzIyMTcxfQ.Zui7bGDsumL3hNrNtbjwRegWbUJj86jqk9q2hIno0QU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODMxODY1OSwiZXhwIjoxNzM4MzE4OTU5fQ.53k8D6QktSPI-gEqZ-9IC8qhLLohZTAHG7v-q5g_pIQ
 Content-Type: application/json
 
 {
@@ -92,4 +92,101 @@ Content-Type: application/json
     "text": "Текст публикации (обязательно). Минимальная длина 100 символов, максимальная 1024 символа. Текст публикации (обязательно)."
   }
 }
+###
+
+# Create a new PHOTO post
+POST http://localhost:3000/api/blog HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODMxOTg2NCwiZXhwIjoxNzM4MzIwMTY0fQ.WsjuXRN60OLjQLcFNsWhbv9HQdeOdD5J-sDpm56764Y
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="type"
+
+PHOTO
+--boundary
+Content-Disposition: form-data; name="file"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./avatar.jpg
+--boundary--
+
+###
+
+# Get all posts
+GET http://localhost:3000/api/posts HTTP/1.1
+
+###
+
+# Get posts with filter
+
+GET http://localhost:3000/api/posts?limit=2&sortDirection=desc&page=1&search=Тест HTTP/1.1
+
+###
+
+# Get post by id
+GET http://localhost:3000/api/posts/fb187059-ab2b-490d-8e56-838392d5b949 HTTP/1.1
+
+###
+
+# Add like to post
+POST http://localhost:3000/api/posts/addLike/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODQ5NDE3MCwiZXhwIjoxNzM4NDk0NDcwfQ.08nYxz182hIwfpXtdHnnXHYnDF4RA6QVEEHC7ZbRa-w
+
+###
+
+# Delete like to post
+POST http://localhost:3000/api/posts/deleteLike/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODQ5NDE3MCwiZXhwIjoxNzM4NDk0NDcwfQ.08nYxz182hIwfpXtdHnnXHYnDF4RA6QVEEHC7ZbRa-w
+
+###
+
+# Make a repost
+POST http://localhost:3000/api/posts/repost/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzliNTA1OGY1Y2M2MTI5MjQxMThhNTAiLCJlbWFpbCI6Imtla3MyQG5vdGZvdW5kLmxvY2FsIiwibmFtZSI6Iktla3MiLCJpYXQiOjE3Mzg0OTY2NjcsImV4cCI6MTczODQ5Njk2N30.H1B1bY-mvIM5YkRMUo9WEcxLtq1zhiPFTX8MBjPwxaw
+
+###
+
+# Delete a post
+DELETE http://localhost:3000/api/posts/db1f91d7-691e-44af-bcba-146b213c3493
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODUwMDgxMywiZXhwIjoxNzM4NTAxMTEzfQ.sHL3eQf_2KaQfElop7pTpTI7kiNWCmQ-2-pnUjuVgK0
+
+###
+
+# Update a post
+PATCH http://localhost:3000/api/posts/fb187059-ab2b-490d-8e56-838392d5b949
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODUwNDA1NiwiZXhwIjoxNzM4NTA0MzU2fQ.R3mXdXx8Iyz7rWKf6DoDAaP9RobvWCp16adWqyUTX_s
+Content-Type: application/json
+
+{
+  "type": "TEXT",
+  "tags": ["cats", "new"],
+  "content": {
+    "title": "Updated. Тест API Gateway Тест API Gateway",
+    "teaser": "Текст с анонсом публикации. Минимальная длина 50 символов, максимальная 255.",
+    "text": "Текст публикации (обязательно). Минимальная длина 100 символов, максимальная 1024 символа. Текст публикации (обязательно)."
+  }
+}
+
+###
+
+# Create a comment to a post
+POST http://localhost:3000/api/posts/68436b6a-16ec-42b4-a48a-a4b147cd1161/comments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODU3NDgxNiwiZXhwIjoxNzM4NTc1MTE2fQ.SmnmpBOyqDg0oH_yOBpXA5EXua1d8an0wT4aMdDkj3k
+Content-Type: application/json
+
+{
+  "text": "This is text of a comment."
+}
+
+###
+
+# Get comments to a post
+GET http://localhost:3000/api/posts/68436b6a-16ec-42b4-a48a-a4b147cd1161/comments
+
+###
+
+# Delete comment
+DELETE  http://localhost:3000/api/comments/4f3bd95d-510b-442b-ba92-7797622d20e8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzdlNTNlZDdiYWNhMzFhNDU5OTcxNjAiLCJlbWFpbCI6Imtla3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiS2VrcyIsImlhdCI6MTczODU4MjMxNywiZXhwIjoxNzM4NTgyNjE3fQ.Vr_89L0gn2uVIRE36Qz8E3Onrv5ZRI0TKS4Cn59gmj0
+
 ###

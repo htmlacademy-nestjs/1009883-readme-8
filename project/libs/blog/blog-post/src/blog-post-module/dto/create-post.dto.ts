@@ -7,7 +7,10 @@ import {
   IsString,
   Length,
   NotContains,
+  Validate,
   ValidateNested,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { PostTypes } from '@project/shared-core';
@@ -19,18 +22,48 @@ import {
   TextContentDto,
   VideoContentDto,
 } from './post-content.dto';
+import { ApiExtraModels, ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
-// const YOUTUBE_REGEXP =
-//   /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/gi;
+const ANY_LETTERS_REGEXP = /^\p{L}.*$/u;
 
+@ValidatorConstraint({ name: 'startsWithLetter' })
+export class startsWithLetterValidator implements ValidatorConstraintInterface {
+  validate(values: string[] = []): boolean {
+    if (values.length) {
+      return values.every((value) => ANY_LETTERS_REGEXP.test(value));
+    }
+    return false;
+  }
+}
+
+@ApiExtraModels(
+  LinkContentDto,
+  PhotoContentDto,
+  QuoteContentDto,
+  TextContentDto,
+  VideoContentDto
+)
 export class CreatePostDto {
+  @ApiProperty({
+    description: `Post type: ${PostTypes.Video}, ${PostTypes.Text}, ${PostTypes.Quote}, ${PostTypes.Photo} or ${PostTypes.Link}`,
+    example: 'VIDEO',
+  })
   @IsIn(Object.values(PostTypes))
   public type: (typeof PostTypes)[keyof typeof PostTypes];
 
+  @ApiProperty({
+    description: 'Author ID',
+    example: '677e53ed7baca31a45997160',
+  })
   @IsString()
   @IsMongoId()
   public authorId: string;
 
+  @ApiProperty({
+    description: 'Array of tags',
+    example: ['cats', 'celebrities'],
+    required: false,
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -39,8 +72,20 @@ export class CreatePostDto {
   @Transform(({ value }) => value.map((item) => item.toLowerCase()))
   @Transform(({ value }) => Array.from(new Set(value)))
   @ArrayMaxSize(8)
+  @Validate(startsWithLetterValidator, {
+    message: 'The first character of a tag must be a letter.',
+  })
   public tags: string[];
 
+  @ApiProperty({
+    oneOf: [
+      { $ref: getSchemaPath(LinkContentDto) },
+      { $ref: getSchemaPath(PhotoContentDto) },
+      { $ref: getSchemaPath(QuoteContentDto) },
+      { $ref: getSchemaPath(TextContentDto) },
+      { $ref: getSchemaPath(VideoContentDto) },
+    ],
+  })
   @ValidateNested()
   @Type(() => PostContent, {
     discriminator: {
@@ -61,66 +106,3 @@ export class CreatePostDto {
     | TextContentDto
     | VideoContentDto;
 }
-
-// export class CreatePostDto {
-//   @IsIn(Object.values(PostTypes))
-//   public type: (typeof PostTypes)[keyof typeof PostTypes];
-
-//   @IsString()
-//   @IsMongoId()
-//   public authorId: string;
-
-//   @IsOptional()
-//   @IsArray()
-//   @IsString({ each: true })
-//   @Length(3, 10, { each: true })
-//   @NotContains(' ', { each: true })
-//   @Transform(({ value }) => value.map((item) => item.toLowerCase()))
-//   @Transform(({ value }) => Array.from(new Set(value)))
-//   @ArrayMaxSize(8)
-//   public tags: string[];
-
-//   @ValidateIf((o) => o.type === PostTypes.Text || o.type === PostTypes.Video)
-//   @IsString()
-//   @Length(20, 50)
-//   public title: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Link)
-//   @IsUrl()
-//   public linkUrl: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Link)
-//   @IsOptional()
-//   @IsString()
-//   @MaxLength(300)
-//   public linkDescription: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Photo)
-//   @IsUrl()
-//   public photoUrl: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Quote)
-//   @IsString()
-//   @Length(20, 300)
-//   public quote: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Quote)
-//   @IsString()
-//   @Length(3, 50)
-//   public quoteAuthor: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Text)
-//   @IsString()
-//   @Length(50, 255)
-//   public teaser: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Text)
-//   @IsString()
-//   @Length(100, 1024)
-//   public text: string;
-
-//   @ValidateIf((obj) => obj.type === PostTypes.Video)
-//   @IsUrl()
-//   @Matches(YOUTUBE_REGEXP)
-//   public videoUrl: string;
-// }

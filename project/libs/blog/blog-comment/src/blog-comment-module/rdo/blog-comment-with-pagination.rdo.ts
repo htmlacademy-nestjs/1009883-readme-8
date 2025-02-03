@@ -1,17 +1,16 @@
 import { Expose, Type } from 'class-transformer';
-
-import { BlogPostRdo } from './blog-post.rdo';
 import { ApiProperty } from '@nestjs/swagger';
+import { CommentRdo } from './comment.rdo';
 
-export class BlogPostWithPaginationRdo {
+export class BlogCommentWithPaginationRdo {
   @ApiProperty({
-    description: 'List of posts',
-    example: ['Post1', 'Post2'],
-    type: [BlogPostRdo],
+    description: 'List of comments',
+    example: ['Comment1', 'Comment2'],
+    type: [CommentRdo],
   })
   @Expose()
-  @Type(() => BlogPostRdo)
-  public entities: BlogPostRdo[];
+  @Type(() => CommentRdo)
+  public entities: CommentRdo[];
 
   @ApiProperty({
     description: 'Total pages count',

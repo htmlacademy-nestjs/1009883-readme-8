@@ -6,7 +6,7 @@ export type BlogContents = {
     description?: string;
   };
   [PostTypes.Photo]: {
-    url: string;
+    pictureId: string;
   };
   [PostTypes.Quote]: {
     quote: string;
@@ -22,26 +22,3 @@ export type BlogContents = {
     url: string;
   };
 };
-
-// export type BlogContents = {
-//   [PostTypes.Link]: {
-//     linkUrl: string;
-//     linkDescription?: string;
-//   };
-//   [PostTypes.Photo]: {
-//     photoUrl: string;
-//   };
-//   [PostTypes.Quote]: {
-//     quote: string;
-//     quoteAuthor: string;
-//   };
-//   [PostTypes.Text]: {
-//     title: string;
-//     teaser: string;
-//     text: string;
-//   };
-//   [PostTypes.Video]: {
-//     title: string;
-//     videoUrl: string;
-//   };
-// };

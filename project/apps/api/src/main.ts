@@ -22,7 +22,6 @@ async function bootstrap() {
   SwaggerModule.setup('spec', app, document);
 
   app.useGlobalInterceptors(new RequestIdInterceptor());
-  // const port = process.env.PORT || DEFAULT_PORT;
   const port = DEFAULT_PORT;
   await app.listen(port);
   Logger.log(

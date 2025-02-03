@@ -20,7 +20,9 @@ import { BlogPostWithPaginationRdo } from './rdo/blog-post-with-pagination.rdo';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import {
+  BlogCommentQuery,
   BlogCommentService,
+  BlogCommentWithPaginationRdo,
   CommentRdo,
   CreateCommentDto,
 } from '@project/blog-comment';
@@ -251,5 +253,40 @@ export class BlogPostController {
   ) {
     const newComment = await this.blogPostService.createComment(postId, dto);
     return fillDto(CommentRdo, newComment.toPOJO());
+  }
+
+  @ApiResponse({
+    type: BlogCommentWithPaginationRdo,
+    status: HttpStatus.OK,
+    description: BlogPostResponseMessages.CommentsFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: BlogPostResponseMessages.AuthFailed,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: BlogPostResponseMessages.PostNotFound,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: BlogPostResponseMessages.ServerError,
+  })
+  @Get('/:postId/comments')
+  public async getComments(
+    @Param('postId') postId: string,
+    @Query() query: BlogCommentQuery
+  ) {
+    const commentsWithPagination = await this.blogPostService.getComments(
+      postId,
+      query
+    );
+    const result = {
+      ...commentsWithPagination,
+      entities: commentsWithPagination.entities.map((comment) =>
+        comment.toPOJO()
+      ),
+    };
+    return fillDto(BlogCommentWithPaginationRdo, result);
   }
 }

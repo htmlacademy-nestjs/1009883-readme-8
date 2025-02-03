@@ -51,6 +51,7 @@ export class BlogPostQuery {
     default: BlogPostQueryDefaults.PageCount,
   })
   @Transform(({ value }) => +value || BlogPostQueryDefaults.PageCount)
+  @IsNumber()
   @IsOptional()
   public page: number = BlogPostQueryDefaults.PageCount;
 

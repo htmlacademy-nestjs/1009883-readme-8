@@ -61,6 +61,13 @@ model Favorite {
   @@map("favorites")
 }
 
+model Notification {
+  id        String   @id @default(uuid())
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("notifications")
+}
+
 enum Type {
   VIDEO
   TEXT

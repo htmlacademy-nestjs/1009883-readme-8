@@ -21,7 +21,6 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import {
   BlogCommentQuery,
-  BlogCommentService,
   BlogCommentWithPaginationRdo,
   CommentRdo,
   CreateCommentDto,
@@ -30,14 +29,37 @@ import { PostContentRequestTransform } from './interceptors/post-content-request
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BlogPostResponseMessages } from './blog-post.constant';
 import { AuthorIdDto } from './dto/author-id.dto';
+import { BlogNotificationsService } from '@project/blog-notifications';
 
 @ApiTags('posts')
 @Controller('posts')
 export class BlogPostController {
   constructor(
     private readonly blogPostService: BlogPostService,
-    private readonly blogCommentService: BlogCommentService
+    private readonly notificationsService: BlogNotificationsService
   ) {}
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: BlogPostResponseMessages.NotificationsSent,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: BlogPostResponseMessages.ServerError,
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Get('notify')
+  public async notifyNewPosts() {
+    const posts = await this.blogPostService.getPostsToNotify();
+
+    if (!posts?.length) return;
+
+    const pojoPosts = posts.map((post) => post.toPOJO());
+
+    await this.notificationsService.notifyNewPosts(pojoPosts);
+
+    // await this.blogPostService.makeNotifyRecord();
+  }
 
   @ApiResponse({
     type: BlogPostRdo,

@@ -31,7 +31,7 @@ export class EmailSubscriberController {
   @RabbitSubscribe({
     exchange: 'readme-8.notifications',
     routingKey: RabbitRouting.NotifyNewPosts,
-    queue: 'readme-8.notifications.income',
+    queue: 'readme-8.notifications.newPosts',
   })
   public async notifyNewPosts(data: { type: string; posts: Post[] }) {
     console.log(`Notify new posts type: ${data?.type}`);

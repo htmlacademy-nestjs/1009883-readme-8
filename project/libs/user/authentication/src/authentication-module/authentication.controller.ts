@@ -106,11 +106,6 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: AuthenticationResponseMessage.JwtAuthFailed,
-  })
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoIdValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);

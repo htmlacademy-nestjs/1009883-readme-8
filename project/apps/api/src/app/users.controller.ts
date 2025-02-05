@@ -34,6 +34,7 @@ import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { CheckAuthGuard } from './guards/check-auth.guard';
+import { substituteFileUrl } from './helpers/substitute-file-url';
 
 @ApiTags('users')
 @Controller('users')
@@ -187,6 +188,13 @@ export class UsersController {
         },
       }
     );
+
+    if (data?.['avatar']) {
+      data['avatar'] = await substituteFileUrl(
+        this.httpService,
+        data?.['avatar']
+      );
+    }
 
     return data;
   }

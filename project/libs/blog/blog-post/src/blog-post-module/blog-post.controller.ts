@@ -52,13 +52,11 @@ export class BlogPostController {
   public async notifyNewPosts() {
     const posts = await this.blogPostService.getPostsToNotify();
 
-    if (!posts?.length) return;
-
     const pojoPosts = posts.map((post) => post.toPOJO());
 
     await this.notificationsService.notifyNewPosts(pojoPosts);
 
-    // await this.blogPostService.makeNotifyRecord();
+    await this.blogPostService.makeNotifyRecord();
   }
 
   @ApiResponse({

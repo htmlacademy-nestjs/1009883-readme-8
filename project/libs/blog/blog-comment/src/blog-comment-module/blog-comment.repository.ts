@@ -91,13 +91,4 @@ export class BlogCommentRepository extends BasePostgresRepository<
       },
     });
   }
-
-  // public async update(entity: BlogCommentEntity): Promise<void> {
-  //   await this.client.comment.update({
-  //     where: { id: entity.id },
-  //     data: {
-  //       text: entity.text,
-  //     },
-  //   });
-  // }
 }

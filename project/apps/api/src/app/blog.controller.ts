@@ -26,7 +26,7 @@ import { ApplicationServiceURL } from './app.config';
 import { InjectAuthorIdInterceptor } from '@project/interceptors';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostCreateDto } from './dto/post-create.dto';
-import { PostTypes } from '@project/shared-core';
+import { Comment, Post as PostType, PostTypes } from '@project/shared-core';
 import { ApiResponse } from '@nestjs/swagger';
 import {
   BlogPostQuery,
@@ -41,6 +41,8 @@ import {
   CommentRdo,
 } from '@project/blog-comment';
 import { CommentCreateDto } from './dto/comment-create.dto';
+import { transformPost } from './helpers/transform-post';
+import { fillAuthorInfo } from './helpers/fill-author-info';
 
 @Controller('posts')
 @UseFilters(AxiosExceptionFilter)
@@ -129,9 +131,12 @@ export class BlogController {
   })
   @Get(':id')
   public async show(@Param('id') id: string) {
-    const { data } = await this.httpService.axiosRef.get(
+    const { data } = await this.httpService.axiosRef.get<PostType>(
       `${ApplicationServiceURL.Posts}/${id}`
     );
+
+    await transformPost(this.httpService, data);
+
     return data;
   }
 
@@ -146,12 +151,15 @@ export class BlogController {
   })
   @Get('/')
   public async index(@Query() query: BlogPostQuery) {
-    const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.Posts}`,
-      {
-        params: query,
-      }
-    );
+    const { data } = await this.httpService.axiosRef.get<{
+      entities: PostType[];
+    }>(`${ApplicationServiceURL.Posts}`, {
+      params: query,
+    });
+
+    for (const post of data.entities) {
+      await transformPost(this.httpService, post);
+    }
 
     return data;
   }
@@ -406,12 +414,15 @@ export class BlogController {
     @Param('postId') postId: string,
     @Query() query: BlogCommentQuery
   ) {
-    const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.Posts}/${postId}/comments`,
-      {
-        params: query,
-      }
-    );
+    const { data } = await this.httpService.axiosRef.get<{
+      entities: Comment[];
+    }>(`${ApplicationServiceURL.Posts}/${postId}/comments`, {
+      params: query,
+    });
+
+    for (const comment of data.entities) {
+      await fillAuthorInfo(this.httpService, comment);
+    }
 
     return data;
   }
